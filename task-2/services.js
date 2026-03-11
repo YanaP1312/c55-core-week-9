@@ -1,8 +1,8 @@
 // Nobel Prize API Documentation: https://www.nobelprize.org/about/developer-zone-2/
 
-import { fetchData } from './fetcher.js';
+import { fetchData } from "./fetcher.js";
 
-const API_BASE_URL = 'https://api.nobelprize.org/2.1';
+const API_BASE_URL = "https://api.nobelprize.org/2.1";
 
 /**
  * Fetch Nobel Prizes with optional filters
@@ -15,7 +15,17 @@ const API_BASE_URL = 'https://api.nobelprize.org/2.1';
  * @param {Function} onError - Callback for fetch errors
  */
 export function fetchNobelPrizes(filters = {}, onSuccess, onError) {
-  let url = ''; // TODO Construct the full URL with query parameters;
+  const { year = "all", category = "all", offset = 0, limit = 10 } = filters;
+
+  let url = `${API_BASE_URL}/nobelPrizes?offset=${offset}&limit=${limit}&sort=desc`;
+
+  if (year !== "all") {
+    url += `&nobelPrizeYear=${year}`;
+  }
+
+  if (category !== "all") {
+    url += `&nobelPrizeCategory=${category}`;
+  }
 
   fetchData(url, onSuccess, onError);
 }
