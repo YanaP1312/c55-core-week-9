@@ -1,5 +1,7 @@
 #!/bin/bash
 
+SCRIPT_DIR=$(cd "$(dirname "$0")" && pwd)
+
 response=$(curl -X POST http://localhost:3000/users \
   -H "Content-Type: application/json; charset=UTF-8" \
   -d '{"name":"John Doe", "email": "john.doe@example.com", "password": "secret123", "role": "user", "active": true, "department": "Engineering"}')
@@ -10,5 +12,6 @@ response=$(curl -X POST http://localhost:3000/users \
   
   id=$(echo "$id_line" | tr -cd '0-9') 
   
-  echo "$id" > task-1/id.txt 
+  echo "$id" > "$SCRIPT_DIR/id.txt" 
+
 
